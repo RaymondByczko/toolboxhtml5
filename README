@@ -1,0 +1,11 @@
+RByczko, 2012-02-17, Feb 17, 2012
+Change log:
+
+The purpose of this repo is to construct various
+JavaScript functions etc to allow easy use
+of HTML5 capability.
+
+Canvas capability at this point includes a presentation
+of a grid and the ability to highlite a square within
+it.  This has numerous applications when coupled
+with Ajax and SOAP calls to do image scanning.
