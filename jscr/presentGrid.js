@@ -85,3 +85,62 @@ function highliteSquare(sq_x, sq_y, canvasid, v_grid_spacing, h_grid_spacing)
 				
 
 }
+
+
+/*
+ * divideGrid: this divides a canvas into q_x parts along the x-axis,
+ * and q_y parts along the y-axis, and accounts for a line thickness
+ * of wl.
+ *
+ * If there are x divisions, there will be x+1 lines.
+ * Assume space between lines is d.  Assume the canvas width is wc.
+ *
+ * Then, x*d + wl*(x+1) = wc.
+ *
+ * Solving for d yields: [wc - wl*(x+1)]/x
+ *
+ * Given each line is be output based on its position of wl/2,
+ * then, 
+ * each line is put out at: (i+0.5)*wl + i*d   where i=0 to x inclusive.
+ */
+function divideGrid(canvasid, q_x, q_y, wl)
+{
+	var thecanvas = document.getElementById(canvasid);
+	var thecontext = thecanvas.getContext("2d");
+	var cw = thecanvas.width;
+	var ch = thecanvas.height;
+	thecontext.lineWidth = wl;
+
+	var dx = (cw - wl* (q_x + 1))/q_x;
+	for (var x = 0; x <= q_x; x++)
+	{
+		x_position = (x+0.5)*wl + x*dx;
+		thecontext.moveTo(x_position, 0);
+		thecontext.lineTo(x_position, ch);
+	}
+
+	var dy = (ch - wl* (q_y + 1))/q_y;
+	for (var y = 0; y <= q_y; y++)
+	{
+		y_position = (y+0.5)*wl + y*dy;
+		thecontext.moveTo(0,y_position);
+		thecontext.lineTo(cw,y_position);
+	}
+	thecontext.strokeStyle = "#000";
+	thecontext.stroke();
+}
+
+
+function rotateRectangle(canvasid)
+{
+	var thecanvas = document.getElementById(canvasid);
+	var thecontext = thecanvas.getContext("2d");
+	var cw = thecanvas.width;
+	var ch = thecanvas.height;
+	thecontext.translate(cw/2, ch/2);
+	thecontext.rotate(Math.PI*30/180);
+	thecontext.beginPath();
+	thecontext.arc(0, 0, 30, 0, Math.PI, true);
+	thecontext.strokeStyle = "#000";
+	thecontext.stroke();
+}

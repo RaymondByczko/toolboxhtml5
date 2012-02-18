@@ -1,12 +1,30 @@
 <html>
 <head>
 </head>
-<body onload="drawGrid('testCanvasId', 10, 10);highliteSquare(0, 16, 'testCanvasId', 10, 10);">
+<body onload="drawGrid('testCanvasId', 10, 10);highliteSquare(0, 16, 'testCanvasId', 10, 10); divideGrid('testCanvasId2', 5, 5, 2); divideGrid('testCanvasId3',2,2,1);rotateRectangle('testCanvasId3');">
 <script language="JavaScript" type="text/javascript" src="../jscr/presentGrid.js">
 </script>
-<div id="canvasDivBorder" style='position:absolute; top:80px; left: 100px; width: 220px; height: 220px'> 
+<style type="text/css">
+	#canvasDivBorder { border: 2px solid black; }
+</style>
+<div id="canvasDivBorder" style='position:absolute; top:80px; left:100px; width:220px; height:220px'> 
 <div id="canvasDiv" style='position:absolute; top:10px; left: 10px; width: 200px; height: 200px'>
 <canvas id="testCanvasId" width="200" height="200">
+</canvas>
+</div>
+</div>
+
+<div id="canvasDivBorder2" style='position:absolute; top:310px; left:100px; width:220px; height:220px'> 
+<div id="canvasDiv2" style='position:absolute; top:10px; left:10px;width:200px; height:200px'>
+<canvas id="testCanvasId2" width="200" height="200">
+</canvas>
+</div>
+</div>
+
+
+<div id="canvasDivBorder3" style='position:absolute; top:540px; left:100px; width:220px; height:220px'> 
+<div id="canvasDiv3" style='position:absolute; top:10px; left:10px;width:200px; height:200px'>
+<canvas id="testCanvasId3" width="200" height="200">
 </canvas>
 </div>
 </div>
