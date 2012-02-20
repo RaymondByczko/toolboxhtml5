@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "~//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<title>This is helloworker.html</title>
+<div id="resultLabelId" style="position:absolute;left:100px;top:100px;width:200px;height:50px;border:red double 4px">Result</div>
+<div id="resultId" style="position:absolute;left:308px;top:100px;width:200px;height:50px;border:red double 4px"></div>
+
+<div id="sbuttonId" style="position:absolute;left:100px;top:200px;width:200px;height:50px;border:red double 4px">
+<button id="startId" type=button onclick='hworker.postMessage("4");deactivateStart();activateTerminate();'>
+Start Worker
+</button>
+</div>
+<div id="tbuttonId" style="position:absolute;left:100px;top:258px;width:200px;height:50px;border:red double 4px">
+<button id="terminateId" type=button onclick='hworker.terminate(); delete hworker;deactivateTerminate();activateStart();'>
+End Worker
+</button>
+</div>
+<script language="JavaScript" type="text/javascript">
+	var hworker = new Worker("../jscr/helloworker.js");
+	hworker.onmessage = function(event)
+	{
+		document.getElementById("resultId").textContent = event.data;
+		dump("Got:" + event.data + "\n");
+	};
+	hworker.onerror = function(error)
+	{
+		dump("Error:" + error.message + "\n");
+	};
+	function activateStart()
+	{
+		document.getElementById("startId").disabled=false;
+	};
+	function deactivateStart()
+	{
+		document.getElementById("startId").disabled=true;
+	};
+	function activateTerminate()
+	{
+		document.getElementById("terminateId").disabled=false;
+	};
+	function deactivateTerminate()
+	{
+		document.getElementById("terminateId").disabled=true;
+	};
+	activateStart();
+	deactivateTerminate();
+</script>
+</html>
