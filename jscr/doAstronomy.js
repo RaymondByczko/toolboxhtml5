@@ -54,6 +54,7 @@ function DoAstronomy()
 	this.degreeActualFieldOfView = degreeActualFieldOfView;
 	this.minutesActualFieldOfView = minutesActualFieldOfView;
 }
+export DoAstronomy;
 /*
  * computeRASeconds: given the right ascension of a certain star etc,
  * this computes the total number of seconds.  It essentially
@@ -174,6 +175,7 @@ function locateAstronomy
 
 }
 
+export locateAstronomy;
 /**
   * numberFieldOfView: how many fields of View along RA and along Dec are between S1 and S2 where
   * S1 is space object 1 at h1, m1, s1 etc, and given characteristics of the telescope.  If we know
@@ -206,101 +208,4 @@ function numberFieldOfView(h1, m1, s1, h2, m2, s2, fieldViewDegreesEyepiece, flT
 	var numFOV_RA = minutes/minutesFOV;
 
 	return numFOV_RA;
-}
-
-	
-	
-
-
-/*
- * highliteSquare: highlites a particular square given by the pair (sq_x,sq_y).
- * These numbers are the 0 based divisions numbers after the canvas
- * has been divided by _grid_spacing.  (0,0) represents the upperleft box
- * as you might see it in the browser. (0,1) is immediately below it.
- * canvasid indicates the id of the canvas.  _grid_spacing indicates how
- * the canvas was divided.
- */
-function highliteSquare(sq_x, sq_y, canvasid, v_grid_spacing, h_grid_spacing)
-{
-	var thecanvas = document.getElementById(canvasid);
-	var thecontext = thecanvas.getContext("2d");
-	var cw = thecanvas.width;
-	var ch = thecanvas.height;
-
-	var num_x_divs = (cw-1)/h_grid_spacing;
-	var num_y_divs = (ch-1)/v_grid_spacing;
-	if ( (sq_x < 0) || (sq_x > num_x_divs))
-	{
-		throw new UserException('jsc/presentGrid', 'sq_x out of range:'+sq_x, 'AAAB');  
-	}
-	if ( (sq_y < 0) || (sq_y > num_y_divs))
-	{
-		throw new UserException('jsc/presentGrid', 'sq_y out of range:'+sq_x, 'AAAB');  
-	}
-	x_position = sq_x + 0.5 + sq_x*h_grid_spacing; 
-	y_position = sq_y + 0.5 + sq_y*v_grid_spacing;
-
-	thecontext.fillStyle = "rgb(200,0,0)";
-	thecontext.fillRect(x_position + 1, y_position + 1,/* 5, 5*/ h_grid_spacing-1, v_grid_spacing-1 );
-				
-
-}
-
-
-/*
- * divideGrid: this divides a canvas into q_x parts along the x-axis,
- * and q_y parts along the y-axis, and accounts for a line thickness
- * of wl.
- *
- * If there are x divisions, there will be x+1 lines.
- * Assume space between lines is d.  Assume the canvas width is wc.
- *
- * Then, x*d + wl*(x+1) = wc.
- *
- * Solving for d yields: [wc - wl*(x+1)]/x
- *
- * Given each line is be output based on its position of wl/2,
- * then, 
- * each line is put out at: (i+0.5)*wl + i*d   where i=0 to x inclusive.
- */
-function divideGrid(canvasid, q_x, q_y, wl)
-{
-	var thecanvas = document.getElementById(canvasid);
-	var thecontext = thecanvas.getContext("2d");
-	var cw = thecanvas.width;
-	var ch = thecanvas.height;
-	thecontext.lineWidth = wl;
-
-	var dx = (cw - wl* (q_x + 1))/q_x;
-	for (var x = 0; x <= q_x; x++)
-	{
-		x_position = (x+0.5)*wl + x*dx;
-		thecontext.moveTo(x_position, 0);
-		thecontext.lineTo(x_position, ch);
-	}
-
-	var dy = (ch - wl* (q_y + 1))/q_y;
-	for (var y = 0; y <= q_y; y++)
-	{
-		y_position = (y+0.5)*wl + y*dy;
-		thecontext.moveTo(0,y_position);
-		thecontext.lineTo(cw,y_position);
-	}
-	thecontext.strokeStyle = "#000";
-	thecontext.stroke();
-}
-
-
-function rotateRectangle(canvasid)
-{
-	var thecanvas = document.getElementById(canvasid);
-	var thecontext = thecanvas.getContext("2d");
-	var cw = thecanvas.width;
-	var ch = thecanvas.height;
-	thecontext.translate(cw/2, ch/2);
-	thecontext.rotate(Math.PI*30/180);
-	thecontext.beginPath();
-	thecontext.arc(0, 0, 30, 0, Math.PI, true);
-	thecontext.strokeStyle = "#000";
-	thecontext.stroke();
 }
