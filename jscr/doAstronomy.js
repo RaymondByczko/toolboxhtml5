@@ -40,9 +40,19 @@ function DoAstronomy()
 	this.numMinutesPerHourInRA = 60.0;
 	this.numSecondsPerMinuteInRA = 60.0;
 	this.numDegreesAlongRA = 360.0;
+	this.minutesRAFromSecondsRA = minutesRAFromSecondsRA;
+	this.degreesFromMinutesRA = degreesFromMinutesRA;
+	this.minutesRegular = minutesRegular;
 
 	// Regular (360 degrees)
 	this.numMinutesPerDegreeRegular = 60.0;
+
+	// Magnification
+	this.computeMagnification = computeMagnification;
+
+	// Field of view
+	this.degreeActualFieldOfView = degreeActualFieldOfView;
+	this.minutesActualFieldOfView = minutesActualFieldOfView;
 }
 /*
  * computeRASeconds: given the right ascension of a certain star etc,
@@ -99,7 +109,7 @@ function minutesToDegreesRatioRA()
  * method as secondsRA.  Given a certain span in secondRA find
  * the number of minutes, also in RA.
  */
-function minutesRA(secondsRA) 
+function minutesRAFromSecondsRA(secondsRA) 
 {
 	var minutesPerSecondRA = 1.0/this.numSecondsPerMinuteInRA;
 	var minutes = secondsRA * minutesPerSecondRA;
@@ -111,7 +121,7 @@ function minutesRA(secondsRA)
  * this function converts it to degrees.
  */
 // function degreesRA(minutesRA)
-function degrees(minutesRA)
+function degreesFromMinutesRA(minutesRA)
 {
 	var minPerDegRatioRA = this.minutesToDegreesRatioRA();
 	var degPerMinRatioRA - 1.0/minToDegRatioRA;
@@ -128,6 +138,11 @@ function minutesRegular(degrees)
 	return minutesR;
 }
 
+/**
+  * computeMagnification: computes the magnification which is the focal length of the 
+  * telescope divided by the focal length of th eyepiece, and takes into account
+  * the magnification provided by a barlow lens.
+  */
 function computeMagnification(focalLengthTelescope, focalLengthEyepiece, barlowMag) 
 {
 	var magTE = focalLengthTelescope/focalLengthEyepiece;
@@ -148,6 +163,49 @@ function minutesActualFieldOfView(apparentFieldEyepieceDegrees, magnification)
 	var numMinutesPerDegRegular = 1.0/ndpm;
 	var mafov = dafov * numMinutesPerDegRegular;
 	return mafov;
+}
+
+/**
+  * obj def: locateAstronomy
+  */
+function locateAstronomy
+{
+	this.numberFieldOfView = numberFieldOfView;
+
+}
+
+/**
+  * numberFieldOfView: how many fields of View along RA and along Dec are between S1 and S2 where
+  * S1 is space object 1 at h1, m1, s1 etc, and given characteristics of the telescope.  If we know
+  * where one object is, we can figure out number of fields of view over in both coordinates, the other
+  * object is.
+  */
+function numberFieldOfView(h1, m1, s1, h2, m2, s2, fieldViewDegreesEyepiece, flTele, flEyepiece, barlowMag)
+{
+
+	var daObj = new doAstronomy();
+	var ras1 = daObj.computeRASeconds(h1, m1, s1);
+	var ras2 = daObj.computeRASeconds(h2, m2, s2);
+
+	var diffRAsec = daObj.computeDiffRASeconds(ras1, ras2);
+
+
+	var minRA = daObj.minutesRAFromSecondsRA(diffRAsec); 
+
+	var degrees = daObj.degreesFromMinutesRA(minRA);
+
+	var minutes = daObj.minutesRegular(degrees);
+
+
+	var mag = daObj.computeMagnification(flTele, flEyepiece, barlowMag); 
+
+	// var degFV = daObj.degreeActualFieldOfView(fieldViewEDegreesEyepiece, mag);
+
+	var minutesFOV = daObj.minutesActualFieldOfView(fieldViewDegreesEyepiece, mag);
+
+	var numFOV_RA = minutes/minutesFOV;
+
+	return numFOV_RA;
 }
 
 	
