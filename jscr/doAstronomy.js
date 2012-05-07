@@ -5,6 +5,15 @@
  *
  */
 
+// export da.locateAstronomy;
+
+export *;
+function done()
+{
+}
+da = new object();
+// export da.done;
+var EXPORTED_SYMBOLS = ["locateAstronomy"];
 /*
  * UserException: an exception type for indicating something happened.
  * filename specifies the javascript file the error occurred in.
@@ -54,7 +63,7 @@ function DoAstronomy()
 	this.degreeActualFieldOfView = degreeActualFieldOfView;
 	this.minutesActualFieldOfView = minutesActualFieldOfView;
 }
-export DoAstronomy;
+// export DoAstronomy;
 /*
  * computeRASeconds: given the right ascension of a certain star etc,
  * this computes the total number of seconds.  It essentially
@@ -169,13 +178,13 @@ function minutesActualFieldOfView(apparentFieldEyepieceDegrees, magnification)
 /**
   * obj def: locateAstronomy
   */
-function locateAstronomy
+function LocateAstronomy
 {
 	this.numberFieldOfView = numberFieldOfView;
 
 }
 
-export locateAstronomy;
+// export locateAstronomy;
 /**
   * numberFieldOfView: how many fields of View along RA and along Dec are between S1 and S2 where
   * S1 is space object 1 at h1, m1, s1 etc, and given characteristics of the telescope.  If we know
@@ -185,7 +194,7 @@ export locateAstronomy;
 function numberFieldOfView(h1, m1, s1, h2, m2, s2, fieldViewDegreesEyepiece, flTele, flEyepiece, barlowMag)
 {
 
-	var daObj = new doAstronomy();
+	var daObj = new DoAstronomy();
 	var ras1 = daObj.computeRASeconds(h1, m1, s1);
 	var ras2 = daObj.computeRASeconds(h2, m2, s2);
 
@@ -209,3 +218,4 @@ function numberFieldOfView(h1, m1, s1, h2, m2, s2, fieldViewDegreesEyepiece, flT
 
 	return numFOV_RA;
 }
+export *;
