@@ -22,7 +22,7 @@ Hours<input type="text" size=2 maxlength=2 id="h1_id" />
 Minutes<input type="text" size=2 maxlength=2 id="m1_id" align="right" />
 </div>
 <div style='position: absolute; top: 40px; left: 260px; width: 130px; height: 20px'>
-Seconds<input type="text" size=2 maxlength=2 id="s1_id" />
+Seconds<input type="text" size=5 maxlength=5 id="s1_id" />
 </div>
 
 </div>
@@ -45,7 +45,7 @@ Hours<input type="text" size=2 maxlength=2 id="h2_id" />
 Minutes<input type="text" size=2 maxlength=2 id="m2_id" />
 </div>
 <div style='position: absolute; top: 40px; left: 260px; width: 130px; height: 20px'>
-Seconds<input type="text" size=2 maxlength=2 id="s2_id" />
+Seconds<input type="text" size=5 maxlength=5 id="s2_id" />
 </div>
 
 </div>
@@ -70,15 +70,6 @@ RA (fov)<input type="text" size=8 maxlength=8 id="rafov_id" />
 
 <script language="JavaScript" type="text/javascript">
 
-// var import locateAstronomy;
-
-// var laObj = new locateAstronomy();
-// var da = require("da");
-// var d = da.done();
-// Components.utils.imports('../jscr/doAstronomy.js');
-
-// Components.utils.import('resource://../jscr/doAstronomy.js');
-// var doa = require("./jscr/doAstronomy");
 function computeNFOV()
 {
 	// import da.locateAstronomy;
@@ -86,13 +77,13 @@ function computeNFOV()
 
 	// var doa = require("./jscr/doAstronomy");
 	var laObj = new LocateAstronomy();
-	var h1 = 14;
-	var m1 = 1;
-	var s1 = 0;
+	var h1 = $('#h1_id').val();;
+	var m1 = $('#m1_id').val();
+	var s1 = $('#s1_id').val();
 
-	var h2 = 14;
-	var m2 = 34;
-	var s2 = 0;
+	var h2 = $('#h2_id').val();
+	var m2 = $('#m2_id').val();
+	var s2 = $('#s2_id').val();
 
 	var fieldViewDegreesEyepiece = 68.0;
 	var flTele = 633.0;
@@ -105,7 +96,6 @@ function computeNFOV()
 
 
 window.onload = function() { 
-	// $('#computeNumberFOV_id').click(computeNFOV);
 }
 
 </script>

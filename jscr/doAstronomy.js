@@ -87,9 +87,9 @@ function computeRASeconds(hours, minutes, seconds)
 {
 	var minutesPerHour = this.numMinutesPerHourInRA;
 	var secondsPerMinute = this.numSecondsPerMinuteInRA;
-	var numSec1 = hours*minutesPerHour*secondsPerMinute;
-	var numSec2 = minutes*secondsPerMinute;
-	var numSec3 = seconds;
+	var numSec1 = parseFloat(hours)*minutesPerHour*secondsPerMinute;
+	var numSec2 = parseFloat(minutes)*secondsPerMinute;
+	var numSec3 = parseFloat(seconds);
 	
 	var sumSec = numSec1 + numSec2 + numSec3;
 	
