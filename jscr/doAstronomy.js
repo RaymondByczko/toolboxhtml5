@@ -7,13 +7,18 @@
 
 // export da.locateAstronomy;
 
+/*
 export *;
+
 function done()
 {
 }
 da = new object();
+*/
 // export da.done;
+/*
 var EXPORTED_SYMBOLS = ["locateAstronomy"];
+*/
 /*
  * UserException: an exception type for indicating something happened.
  * filename specifies the javascript file the error occurred in.
@@ -56,6 +61,8 @@ function DoAstronomy()
 	// Regular (360 degrees)
 	this.numMinutesPerDegreeRegular = 60.0;
 
+	this.numberDegreesPerMinuteRegular = 1.0/60.0;
+
 	// Magnification
 	this.computeMagnification = computeMagnification;
 
@@ -96,7 +103,7 @@ function computeRASeconds(hours, minutes, seconds)
  */
 function computeDiffRASeconds(secondsRACoord1, secondsRACoord2)
 {
-	var diffSeconds = secondRACoord1 - secondsRACoord2;	
+	var diffSeconds = secondsRACoord1 - secondsRACoord2;	
 	var absDiffSeconds = Math.abs(diffSeconds);
 	return absDiffSeconds;
 }
@@ -108,8 +115,8 @@ function computeDiffRASeconds(secondsRACoord1, secondsRACoord2)
  */
 function minutesToDegreesRatioRA()
 {
-	var numberMinutes = this.numHoursInRA * this.numMinutesPerHourRA;
-	var numberDegrees = this.numDegreeAlongRA;
+	var numberMinutes = this.numHoursInRA * this.numMinutesPerHourInRA;
+	var numberDegrees = this.numDegreesAlongRA;
 	var ratio = numberMinutes/numberDegrees;
 	return ratio;
 }
@@ -134,7 +141,7 @@ function minutesRAFromSecondsRA(secondsRA)
 function degreesFromMinutesRA(minutesRA)
 {
 	var minPerDegRatioRA = this.minutesToDegreesRatioRA();
-	var degPerMinRatioRA - 1.0/minToDegRatioRA;
+	var degPerMinRatioRA = 1.0/minPerDegRatioRA;
 
 	var degRA = minutesRA * degPerMinRatioRA;
 	return degRA;
@@ -162,23 +169,25 @@ function computeMagnification(focalLengthTelescope, focalLengthEyepiece, barlowM
 
 function degreeActualFieldOfView(apparentFieldEyepieceDegrees, magnification)
 {
-	var afov = apparentFieldEyepiece/magnification;
+	var afov = apparentFieldEyepieceDegrees/magnification;
 	return afov;
 }
 
 function minutesActualFieldOfView(apparentFieldEyepieceDegrees, magnification)
 {
 	var dafov = this.degreeActualFieldOfView(apparentFieldEyepieceDegrees, magnification);
-	var ndpm = this.numberDegreesPerMinuteRegular;
-	var numMinutesPerDegRegular = 1.0/ndpm;
-	var mafov = dafov * numMinutesPerDegRegular;
+	// var ndpm = this.numberDegreesPerMinuteRegular;
+	// var numMinutesPerDegRegular = 1.0/ndpm;
+
+	var mafov = dafov * this.numMinutesPerDegreeRegular;
+	// var mafov = dafov * numMinutesPerDegRegular;
 	return mafov;
 }
 
 /**
   * obj def: locateAstronomy
   */
-function LocateAstronomy
+function LocateAstronomy()
 {
 	this.numberFieldOfView = numberFieldOfView;
 
@@ -218,4 +227,5 @@ function numberFieldOfView(h1, m1, s1, h2, m2, s2, fieldViewDegreesEyepiece, flT
 
 	return numFOV_RA;
 }
-export *;
+// export *;
+// exports.LocateAstronomy = LocateAstronomy;
