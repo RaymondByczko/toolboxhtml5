@@ -5,20 +5,6 @@
  *
  */
 
-// export da.locateAstronomy;
-
-/*
-export *;
-
-function done()
-{
-}
-da = new object();
-*/
-// export da.done;
-/*
-var EXPORTED_SYMBOLS = ["locateAstronomy"];
-*/
 /*
  * UserException: an exception type for indicating something happened.
  * filename specifies the javascript file the error occurred in.
@@ -35,7 +21,7 @@ function UserException (filename, message, easygreptext){
       
 UserException.prototype.toString = function (){  
 return this.name + ':filename='+this.filename+':easygreptext='+this.easygreptext+':message='+this.message; 
-}  
+};  
       
 /*
  * drawGrid: draws a grid on a canvas whose id is given by canvasid.
@@ -69,8 +55,12 @@ function DoAstronomy()
 	// Field of view
 	this.degreeActualFieldOfView = degreeActualFieldOfView;
 	this.minutesActualFieldOfView = minutesActualFieldOfView;
+
+	// DEC
+
+	this.computeDECSeconds = computeDECSeconds;
+	this.computeDiffDECSeconds = computeDiffDECSeconds;
 }
-// export DoAstronomy;
 /*
  * computeRASeconds: given the right ascension of a certain star etc,
  * this computes the total number of seconds.  It essentially
@@ -189,18 +179,18 @@ function minutesActualFieldOfView(apparentFieldEyepieceDegrees, magnification)
   */
 function LocateAstronomy()
 {
-	this.numberFieldOfView = numberFieldOfView;
+	this.numberFieldOfViewRA = numberFieldOfViewRA;
+	this.numberFieldOfViewDEC = numberFieldOfViewDEC;
 
 }
 
-// export locateAstronomy;
 /**
   * numberFieldOfView: how many fields of View along RA and along Dec are between S1 and S2 where
   * S1 is space object 1 at h1, m1, s1 etc, and given characteristics of the telescope.  If we know
   * where one object is, we can figure out number of fields of view over in both coordinates, the other
   * object is.
   */
-function numberFieldOfView(h1, m1, s1, h2, m2, s2, fieldViewDegreesEyepiece, flTele, flEyepiece, barlowMag)
+function numberFieldOfViewRA(h1, m1, s1, h2, m2, s2, fieldViewDegreesEyepiece, flTele, flEyepiece, barlowMag)
 {
 
 	var daObj = new DoAstronomy();
@@ -227,5 +217,41 @@ function numberFieldOfView(h1, m1, s1, h2, m2, s2, fieldViewDegreesEyepiece, flT
 
 	return numFOV_RA;
 }
-// export *;
-// exports.LocateAstronomy = LocateAstronomy;
+
+
+function numberFieldOfViewDEC(h1, m1, s1, h2, m2, s2, fieldViewDegreesEyepiece, flTele, flEyepiece, barlowMag)
+{
+
+	var daObj = new DoAstronomy();
+	var decs1 = daObj.computeDECSeconds(h1, m1, s1);
+	var decs2 = daObj.computeDECSeconds(h2, m2, s2);
+
+	var diffDECsec = daObj.computeDiffRASeconds(decs1, decs2);
+	var diffDECmin = diffDECsec/60.0;
+
+	var mag = daObj.computeMagnification(flTele, flEyepiece, barlowMag); 
+
+	var minutesFOV = daObj.minutesActualFieldOfView(fieldViewDegreesEyepiece, mag);
+
+	var numFOV_DEC = diffDECmin/minutesFOV;
+	return numFOV_DEC;
+}
+
+
+function computeDECSeconds(h, m, s)
+{
+	var prod1 = parseFloat(h)*60.0*60.0; 
+	var prod2 = parseFloat(m)*60.0;
+	var decSec = prod1 + prod2 + parseFloat(s);
+	return decSec;
+}
+
+
+function computeDiffDECSeconds(h1, m1, s1, h2, m2, s2) 
+{
+	var sec1 = this.computeDECSeconds(h1, m1, s1);
+	var sec2 = this.computeDECSeconds(h2, m2, s2);
+	var diff = sec1 - sec2;
+	return diff;
+}
+
