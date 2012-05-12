@@ -74,21 +74,37 @@ Sec (DEC)<input type="text" size=5 maxlength=5 id="s2dec_id" />
 </div>
 
 
-<div id=controls_id align="center" style='position: absolute; top: 320px; left:0px; width:400px; height: 80px'>
-<input type="button" id="computeNumberFOV_id" onclick="computeNFOV();"  value="Compute (FOV) RA and DA"/>
+<div id=controls_id align="center" style='position: absolute; top: 320px; left:0px; width:800px; height: 80px'>
+
+<div style='position: absolute; top: 0px; left: 0px; width: 200px; height: 25px'>
+Eyepiece FOV<input type="text" size=4 maxlength=4 id="eyefov_id" />
+</div>
+<div style='position: absolute; top: 0px; left: 200px; width: 200px; height: 25px'>
+Eyepiece FL<input type="text" size=4 maxlength=4 id="eyefl_id" align="right" />
+</div>
+<div style='position: absolute; top: 25px; left: 0px; width: 200px; height: 25px'>
+Barlow Mag<input type="text" size=4 maxlength=4 id="barmag_id" align="right" />
+</div>
+<div style='position: absolute; top: 25px; left: 200px; width: 200px; height: 25px'>
+Tele FL<input type="text" size=4 maxlength=4 id="telefl_id" align="right" />
+</div>
+<div align="center" style='position: absolute; top: 55px; left: 0px; width: 200px; height: 20px'>
+<input align="center" type="button" id="computeNumberFOV_id" onclick="computeNFOV();"  value="Compute (FOV) RA and DA"/>
+</div>
+
 </div>
 
 
-<div id=output_id  style='position: absolute; top: 400px; left:0px; width:400px; height: 80px'>
+<div id=output_id  style='position: absolute; top: 400px; left:0px; width:800px; height: 80px'>
 
-<div align="center" style='position: absolute; top: 0px; left: 0px; width: 400px; height: 25px'>
+<div align="center" style='position: absolute; top:20px; left: 0px; width:500px; height: 25px'>
 FOV distances between space object 1 and space object 2
 </div>
 
-<div style='position: absolute; top: 80px; left: 0px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 50px; left: 0px; width: 180px; height: 20px'>
 RA (fov)<input type="text" size=8 maxlength=8 id="rafov_id" />
 </div>
-<div style='position: absolute; top: 80px; left: 180px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 50px; left: 180px; width: 180px; height: 20px'>
 DEC (fov)<input type="text" size=8 maxlength=8 id="decfov_id" />
 </div>
 
@@ -118,10 +134,15 @@ function computeNFOV()
 	var m2dec = $('#m2dec_id').val();
 	var s2dec = $('#s2dec_id').val();
 
-	var fieldViewDegreesEyepiece = 60.0;
-	var flTele = 633.0;
-	var flEyepiece = 40.0;
-	var barlowMag = 1.0;
+	// var fieldViewDegreesEyepiece = 60.0;
+
+	var fieldViewDegreesEyepiece = $('#eyefov_id').val();
+	// var flTele = 633.0;
+	var flTele = $('#telefl_id').val();
+	// var flEyepiece = 40.0;
+	var flEyepiece = $('#eyefl_id').val();
+	// var barlowMag = 1.0;
+	var barlowMag = $('#barmag_id').val();
 
 	var numFOVra = laObj.numberFieldOfViewRA(h1ra, m1ra, s1ra, h2ra, m2ra, s2ra, fieldViewDegreesEyepiece, flTele, flEyepiece, barlowMag);
 	var numFOVdec = laObj.numberFieldOfViewDEC(d1dec, m1dec, s1dec, d2dec, m2dec, s2dec, fieldViewDegreesEyepiece, flTele, flEyepiece, barlowMag);
