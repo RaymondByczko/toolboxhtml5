@@ -1,0 +1,1 @@
+source deleteobjects.sql;
