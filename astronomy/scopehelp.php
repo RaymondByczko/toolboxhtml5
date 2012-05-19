@@ -14,26 +14,35 @@
 <div align="center" style='position: absolute; top: 0px; left: 0px; width: 400px; height: 40px'>
 Enter coordinates for space object 1
 </div>
+<div style='position: absolute; top: 40px; left: 0px; width: 180px; height: 15px'>
+<form>
+<select name="selSpaceObject1" size="1">
+<option value="1">Regulus</option>
+<option value="2">Vega</option>
+<option value="3">Kochab</option>
+</select>
+</form>
+</div>
 
-<div style='position: absolute; top: 40px; left: 0px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 70px; left: 0px; width: 180px; height: 20px'>
 Hours (RA)<input type="text" size=2 maxlength=2 id="h1ra_id" />
 </div>
-<div style='position: absolute; top: 40px; left: 180px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 70px; left: 180px; width: 180px; height: 20px'>
 Min (RA)<input type="text" size=2 maxlength=2 id="m1ra_id" align="right" />
 </div>
-<div style='position: absolute; top: 40px; left: 360px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 70px; left: 360px; width: 180px; height: 20px'>
 Sec (RA)<input type="text" size=5 maxlength=5 id="s1ra_id" />
 </div>
 
 
 
-<div style='position: absolute; top: 70px; left: 0px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 100px; left: 0px; width: 180px; height: 20px'>
 Deg (DEC)<input type="text" size=2 maxlength=2 id="d1dec_id" />
 </div>
-<div style='position: absolute; top: 70px; left: 180px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 100px; left: 180px; width: 180px; height: 20px'>
 Min (DEC)<input type="text" size=2 maxlength=2 id="m1dec_id" align="right" />
 </div>
-<div style='position: absolute; top: 70px; left: 360px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 100px; left: 360px; width: 180px; height: 20px'>
 Sec (DEC)<input type="text" size=5 maxlength=5 id="s1dec_id" />
 </div>
 
@@ -42,39 +51,48 @@ Sec (DEC)<input type="text" size=5 maxlength=5 id="s1dec_id" />
 
 
 
-<div id=spaceobject2_id style='position: absolute; top: 160px; left:0px; width:400px; height: 160px'>
+<div id=spaceobject2_id style='position: absolute; top: 190px; left:0px; width:400px; height: 160px'>
 
 
 <div align="center" style='position: absolute; top: 0px; left: 0px; width: 400px; height: 40px'>
 Enter coordinates for space object 2
 </div>
 
+<div style='position: absolute; top: 40px; left: 0px; width: 180px; height: 15px'>
+<form>
+<select name="selSpaceObject2" size="1">
+<option value="1">Regulus</option>
+<option value="2">Vega</option>
+<option value="3">Kochab</option>
+</select>
+</form>
+</div>
 
-<div style='position: absolute; top: 40px; left: 0px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 70px; left: 0px; width: 180px; height: 20px'>
 Hours (RA)<input type="text" size=2 maxlength=2 id="h2ra_id" />
 </div>
-<div style='position: absolute; top: 40px; left: 180px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 70px; left: 180px; width: 180px; height: 20px'>
 Min (RA)<input type="text" size=2 maxlength=2 id="m2ra_id" />
 </div>
-<div style='position: absolute; top: 40px; left: 360px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 70px; left: 360px; width: 180px; height: 20px'>
 Sec (RA)<input type="text" size=5 maxlength=5 id="s2ra_id" />
 </div>
 
 
-<div style='position: absolute; top: 70px; left: 0px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 100px; left: 0px; width: 180px; height: 20px'>
 Deg (DEC)<input type="text" size=2 maxlength=2 id="d2dec_id" />
 </div>
-<div style='position: absolute; top: 70px; left: 180px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 100px; left: 180px; width: 180px; height: 20px'>
 Min (DEC)<input type="text" size=2 maxlength=2 id="m2dec_id" align="right" />
 </div>
-<div style='position: absolute; top: 70px; left: 360px; width: 180px; height: 20px'>
+<div style='position: absolute; top: 100px; left: 360px; width: 180px; height: 20px'>
 Sec (DEC)<input type="text" size=5 maxlength=5 id="s2dec_id" />
 </div>
 
 </div>
 
 
-<div id=controls_id align="center" style='position: absolute; top: 320px; left:0px; width:800px; height: 80px'>
+<div id=controls_id align="center" style='position: absolute; top: 350px; left:0px; width:800px; height: 80px'>
 
 <div style='position: absolute; top: 0px; left: 0px; width: 200px; height: 25px'>
 Eyepiece FOV<input type="text" size=4 maxlength=4 id="eyefov_id" />
@@ -95,7 +113,7 @@ Tele FL<input type="text" size=4 maxlength=4 id="telefl_id" align="right" />
 </div>
 
 
-<div id=output_id  style='position: absolute; top: 400px; left:0px; width:800px; height: 80px'>
+<div id=output_id  style='position: absolute; top: 430px; left:0px; width:800px; height: 80px'>
 
 <div align="center" style='position: absolute; top:20px; left: 0px; width:500px; height: 25px'>
 FOV distances between space object 1 and space object 2
