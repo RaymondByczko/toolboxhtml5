@@ -168,6 +168,10 @@ function computeNFOV()
 	$('#decfov_id').val(numFOVdec);
 }
 
+function getStarObjects()
+{
+	
+}
 
 window.onload = function() { 
 }
