@@ -173,7 +173,32 @@ function getStarObjects()
 	
 }
 
+function successStarObjects(data, textStatus, jqXHR)
+{
+	if (textStatus == "success")
+	{
+		var dataXml = jqXHR.responseXML;
+		var xmlString = dataXml.toString();
+		var xmlDoc = jQuery.parseXML(dataXml.toString);
+		xmlDoc.each(function(index){
+			alert($(this).text);
+		});
+		alert("CSuccess found");
+	}
+	else
+		alert("CSuccess not found");
+	
+}
+
 window.onload = function() { 
+	var starObjXml = 'starobjectsxml.php';
+	var ajaxObj = jQuery.ajax(
+		{
+			url:starObjXml,
+			dataType:'xml',
+			// complete:completeStarObjects,
+			success:successStarObjects
+		});
 }
 
 </script>
