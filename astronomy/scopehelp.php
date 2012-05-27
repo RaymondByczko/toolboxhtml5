@@ -16,10 +16,10 @@ Enter coordinates for space object 1
 </div>
 <div style='position: absolute; top: 40px; left: 0px; width: 180px; height: 15px'>
 <form>
-<select name="selSpaceObject1" size="1">
-<option value="1">Regulus</option>
-<option value="2">Vega</option>
-<option value="3">Kochab</option>
+<select id=selSpaceObject1_id name="selSpaceObject1" size="1">
+<option value="4">Sirius</option>
+<option value="5">Rigel</option>
+<option value="6">AlphaC</option>
 </select>
 </form>
 </div>
@@ -179,29 +179,30 @@ function successStarObjects(data, textStatus, jqXHR)
 	{
 		if (textStatus == "success")
 		{
-			var data2 = data;
-			var el2 = data2.getElementsByTagName('starobjectdetails');
+			var starObjPresent = $(data).children('starobjectdetails').length;
+			if (starObjPresent != 1)
+			{
+				throw new Error("Improper format: not starobjectdetails outer tag");
+			}
  			var numEntry = $(data).children('starobjectdetails').children('entry').length;
 			var i = 0;
 			for (i= 0; i < numEntry; i++)
 			{
 				var entry = $(data).children('starobjectdetails').children('entry')[i];
+
+				// $(name="selSpaceObject1").options.add(id,name);
+				// $('select[name="selSpaceObject1"]').options.add(id,name);
+
 				var name = $(entry).children('name').text();
 				var id = $(entry).children('id').text();
-			}
-			var load2 = data2.load();
-			// var idVal = data2.find('id');
-			var dataXml = jqXHR.responseXML;
-			// var idVal = dataXml.find('id');
-			// var nameVal = dataXml.find('name');
+				var idString = id.toString();
 
-			var xmlString = dataXml.toString();
-			var idVal = xmlString.find('id');
-			// var xmlDoc0 = jQuery.parseXML(xmlString);
-			var xmlDoc = jQuery.parseXML(dataXml.toString);
-			xmlDoc.each(function(index){
-				alert($(this).text);
-			});
+				// $('select[name="selSpaceObject1"]').options.add(id,name);
+
+				var addition = '<option value="' + idString + '">' + name + '</option>';
+				// $('select[name="selSpaceObject1"]').append(addition);
+				$('#selSpaceObject1_id').append(addition);
+			}
 			alert("CSuccess found");
 		}
 		else
@@ -210,6 +211,8 @@ function successStarObjects(data, textStatus, jqXHR)
 	catch (e)
 	{
 		console.log(e.name);
+		console.log(e.fileName);
+		console.log(e.lineNumber);
 		console.log(e.message);
 	}
 	
