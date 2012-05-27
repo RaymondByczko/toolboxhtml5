@@ -175,20 +175,47 @@ function getStarObjects()
 
 function successStarObjects(data, textStatus, jqXHR)
 {
-	if (textStatus == "success")
+	try
 	{
-		var dataXml = jqXHR.responseXML;
-		var xmlString = dataXml.toString();
-		var xmlDoc = jQuery.parseXML(dataXml.toString);
-		xmlDoc.each(function(index){
-			alert($(this).text);
-		});
-		alert("CSuccess found");
+		if (textStatus == "success")
+		{
+			var data2 = data;
+			var el2 = data2.getElementsByTagName('starobjectdetails');
+ 			var numEntry = $(data).children('starobjectdetails').children('entry').length;
+			var i = 0;
+			for (i= 0; i < numEntry; i++)
+			{
+				var entry = $(data).children('starobjectdetails').children('entry')[i];
+				var name = $(entry).children('name').text();
+				var id = $(entry).children('id').text();
+			}
+			var load2 = data2.load();
+			// var idVal = data2.find('id');
+			var dataXml = jqXHR.responseXML;
+			// var idVal = dataXml.find('id');
+			// var nameVal = dataXml.find('name');
+
+			var xmlString = dataXml.toString();
+			var idVal = xmlString.find('id');
+			// var xmlDoc0 = jQuery.parseXML(xmlString);
+			var xmlDoc = jQuery.parseXML(dataXml.toString);
+			xmlDoc.each(function(index){
+				alert($(this).text);
+			});
+			alert("CSuccess found");
+		}
+		else
+			alert("CSuccess not found");
 	}
-	else
-		alert("CSuccess not found");
+	catch (e)
+	{
+		console.log(e.name);
+		console.log(e.message);
+	}
 	
 }
+
+
 
 window.onload = function() { 
 	var starObjXml = 'starobjectsxml.php';
