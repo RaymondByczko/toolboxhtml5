@@ -60,10 +60,10 @@ Enter coordinates for space object 2
 
 <div style='position: absolute; top: 40px; left: 0px; width: 180px; height: 15px'>
 <form>
-<select name="selSpaceObject2" size="1">
-<option value="1">Regulus</option>
+<select id=selSpaceObject2_id name="selSpaceObject2" size="1" onclick="clickInSpaceObject2();">
+<!--<option value="1">Regulus</option>
 <option value="2">Vega</option>
-<option value="3">Kochab</option>
+<option value="3">Kochab</option>-->
 </select>
 </form>
 </div>
@@ -179,29 +179,24 @@ function successStarObjects(data, textStatus, jqXHR)
 	{
 		if (textStatus == "success")
 		{
-			var starObjPresent = $(data).children('starobjectdetails').length;
+			var starObjPresent = $(data).children('starobjects').length;
 			if (starObjPresent != 1)
 			{
-				throw new Error("Improper format: not starobjectdetails outer tag");
+				throw new Error("Improper format: not starobjects outer tag");
 			}
- 			var numEntry = $(data).children('starobjectdetails').children('entry').length;
+ 			var numEntry = $(data).children('starobjects').children('entry').length;
 			var i = 0;
 			for (i= 0; i < numEntry; i++)
 			{
-				var entry = $(data).children('starobjectdetails').children('entry')[i];
-
-				// $(name="selSpaceObject1").options.add(id,name);
-				// $('select[name="selSpaceObject1"]').options.add(id,name);
+				var entry = $(data).children('starobjects').children('entry')[i];
 
 				var name = $(entry).children('name').text();
 				var id = $(entry).children('id').text();
 				var idString = id.toString();
 
-				// $('select[name="selSpaceObject1"]').options.add(id,name);
-
 				var addition = '<option value="' + idString + '">' + name + '</option>';
-				// $('select[name="selSpaceObject1"]').append(addition);
 				$('#selSpaceObject1_id').append(addition);
+				$('#selSpaceObject2_id').append(addition);
 			}
 			alert("CSuccess found");
 		}
@@ -216,6 +211,77 @@ function successStarObjects(data, textStatus, jqXHR)
 		console.log(e.message);
 	}
 	
+}
+
+function successStarObjectDetails2(data, textStatus, jqXHR)
+{
+	try
+	{
+		if (textStatus == "success")
+		{
+			var starObjPresent = $(data).children('starobjectdetails').length;
+			if (starObjPresent != 1)
+			{
+				throw new Error("Improper format: not starobjectdetails outer tag");
+			}
+ 			var numEntry = $(data).children('starobjectdetails').children('entry').length;
+			if (numEntry != 1)
+				throw new Error("Improper number of entries: numEntry==" + numEntry);
+
+			var entry = $(data).children('starobjectdetails').children('entry')[0];
+
+			var name = $(entry).children('name').text();
+			var id = $(entry).children('id').text();
+			var idString = id.toString();
+
+
+			var raHrs = $(entry).children('raHrs').text();
+			var raMin = $(entry).children('raMin').text();
+			var raSec = $(entry).children('raSec').text();
+
+			var decSign = $(entry).children('decSign').text();
+			var decDeg = $(entry).children('decDeg').text();
+			var decMin = $(entry).children('decMin').text();
+			var decSec = $(entry).children('decSec').text();
+
+			$('#h2ra_id').val(raHrs);
+			$('#m2ra_id').val(raMin);
+			$('#s2ra_id').val(raSec);
+
+			$('#d2dec_id').val(decSign * decDeg);
+			$('#m2dec_id').val(decMin);
+			$('#s2dec_id').val(decSec);
+
+			alert("CSuccessSODetails found");
+		}
+		else
+			alert("CSuccessSODetails not found");
+	}
+	catch (e)
+	{
+		console.log(e.name);
+		console.log(e.fileName);
+		console.log(e.lineNumber);
+		console.log(e.message);
+	}
+}
+
+function clickInSpaceObject2()
+{
+	// var selIndex = $('#selSpaceObject2_id')[0].selectedIndex;
+	var selValue = $('#selSpaceObject2_id')[0].value;
+	// if (selIndex == -1)
+	//	return;
+	var starObjXml = 'starobjectdetailsxml.php';
+	var ajaxObj = jQuery.ajax(
+		{
+			url:starObjXml,
+			dataType:'xml',
+			type:'GET',
+			data:'selIndex='+selValue,
+			success:successStarObjectDetails2
+		});
+	alert("Click in SpaceObject2: selIndex="+selIndex);
 }
 
 

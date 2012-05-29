@@ -1,15 +1,22 @@
 <?php
 	// author: Raymond Byczko
-	// file: starobjectsxml.php
-	// start date: 2012-05-19 May 19, 2012
-	// further work dates: 2012-05-22, 2012-05-28
-	// purpose: to create and return an xml structure for all star objects in
-	// the astronomy database.  The id and name are specified for each.
+	// file: starobjectdetailsxml.php
+	// start date: 2012-05-28 May 28, 2012
+	// further work dates:
+	// purpose: to create and return an xml structure for one star object in
+	// the astronomy database.  The id is specified for it.
 	header('Content-Type: application/xml');
-	class CStarObjects
+	class CStarObjectDetails
 	{
 		public $id;
 		public $name;
+		public $raHrs;
+		public $raMin;
+		public $raSec;
+		public $decSign;
+		public $decDeg;
+		public $decMin;
+		public $decSec;
 	}
 	$dsn = '';
 	try {
@@ -28,53 +35,74 @@
 		{
 			throw new Exception("SH_DATABASE env not defined");
 		}
-
+		$selIndex = $_GET['selIndex'];
+		// $selIndex = 7;
 		$retXml = "<?xml version=\"1.0\" ?>";
 
 		$dsn = 'mysql:dbname='.$database.';host=localhost';
 		$pdo = new PDO($dsn, $user, $pass);
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$sql = 'select id, name from skyobjects';
+		$sql = 'select id, name, raHrs, raMin, raSec, decSign, decDeg, decMin, decSec from skyobjects where id = ? limit 1';
+		
 		$stmt = $pdo->prepare($sql);  
+		$stmt->bindParam(1, $selIndex, PDO::PARAM_STR, 12);
 		if ($stmt == FALSE)
 		{
 			throw new Exception('PDO::prepare failed');
 		}
-		$stmt->setFetchMode(PDO::FETCH_INTO, new CStarObjects());
+		$stmt->setFetchMode(PDO::FETCH_INTO, new CStarObjectDetails());
 		$stmt->execute();
-		$retXml .= "<starobjects>";
+		$retXml .= "<starobjectdetails>";
 		foreach ($stmt as $soObj)
 		{
 			$id = $soObj->id;
 			$name = $soObj->name;
+			$raHrs = $soObj->raHrs;
+			$raMin = $soObj->raMin;
+			$raSec = $soObj->raSec;
+			$decSign = $soObj->decSign;
+			$decDeg = $soObj->decDeg;
+			$decMin = $soObj->decMin;
+			$decSec = $soObj->decSec;
+
 			$retXml .= "<entry>";
 			$retXml .= "<id>".$id."</id>";
 			$retXml .= "<name>".$name."</name>";
+
+			$retXml .= "<raHrs>".$raHrs."</raHrs>";
+			$retXml .= "<raMin>".$raMin."</raMin>";
+			$retXml .= "<raSec>".$raSec."</raSec>";
+
+			$retXml .= "<decSign>".$decSign."</decSign>";
+			$retXml .= "<decDeg>".$decDeg."</decDeg>";
+			$retXml .= "<decMin>".$decMin."</decMin>";
+			$retXml .= "<decSec>".$decSec."</decSec>";
+
 			$retXml .= "</entry>";
 		}
-		$retXml .= "</starobjects>";
+		$retXml .= "</starobjectdetails>";
 		echo $retXml;
 	}
 	catch (PDOException $pex)
 	{
 		$msg = $pex->getMessage();
 		$retXml = "<?xml version=\"1.0\" ?>";
-		$retXml .= '<starobjects>';
+		$retXml .= '<starobjectdetails>';
 		$retXml .= '<status>1</status>';
 		$retXml .= '<dsn>'.$dsn.'</dsn>';
 		$retXml .= '<msg>'.$msg.'</msg>';
-		$retXml .= '</starobjects>';
+		$retXml .= '</starobjectdetails>';
 		echo $retXml;
 	}
 	catch (Exception $ex)
 	{
 		$msg = $ex->getMessage();
 		$retXml = "<?xml version=\"1.0\" ?>";
-		$retXml .= '<starobjects>';
+		$retXml .= '<starobjectdetails>';
 		$retXml .= '<status>2</status>';
 		$retXml .= '<dsn>'.$dsn.'</dsn>';
 		$retXml .= '<msg>'.$msg.'</msg>';
-		$retXml .= '</starobjects>';
+		$retXml .= '</starobjectdetails>';
 		echo $retXml;
 	}
 ?>
