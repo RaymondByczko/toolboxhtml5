@@ -5,7 +5,7 @@
 	// further work dates: 2012-05-22
 	// purpose: to create and return an xml structure for all star objects in
 	// the astronomy database.  The id and name are specified for each.
-	header('Content-Type: text/xml');
+	header('Content-Type: application/xml');
 	class CStarObjects
 	{
 		public $id;
@@ -34,7 +34,7 @@
 		$dsn = 'mysql:dbname='.$database.';host=localhost';
 		$pdo = new PDO($dsn, $user, $pass);
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$id = '1';
+		// $id = '10';
 		$sql = 'select id, name from skyobjects';
 		$stmt = $pdo->prepare($sql);  
 		if ($stmt == FALSE)
@@ -43,16 +43,22 @@
 		}
 		$stmt->setFetchMode(PDO::FETCH_INTO, new CStarObjects());
 		$stmt->execute();
-		$name = 'Regulus';
+		// $name = 'Regulus';
 		$retXml .= "<starobjectdetails>";
+		/*
+		$retXml .= "<entry>";
 		$retXml .= "<id>".$id."</id>";
 		$retXml .= "<name>".$name."</name>";
+		$retXml .= "</entry>";
+		*/
 		foreach ($stmt as $soObj)
 		{
 			$id = $soObj->id;
 			$name = $soObj->name;
+			$retXml .= "<entry>";
 			$retXml .= "<id>".$id."</id>";
 			$retXml .= "<name>".$name."</name>";
+			$retXml .= "</entry>";
 		}
 		$retXml .= "</starobjectdetails>";
 		echo $retXml;
