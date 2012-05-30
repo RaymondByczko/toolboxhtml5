@@ -16,10 +16,7 @@ Enter coordinates for space object 1
 </div>
 <div style='position: absolute; top: 40px; left: 0px; width: 180px; height: 15px'>
 <form>
-<select id=selSpaceObject1_id name="selSpaceObject1" size="1">
-<option value="4">Sirius</option>
-<option value="5">Rigel</option>
-<option value="6">AlphaC</option>
+<select id=selSpaceObject1_id name="selSpaceObject1" size="1" onclick="clickInSpaceObject1();">
 </select>
 </form>
 </div>
@@ -61,9 +58,6 @@ Enter coordinates for space object 2
 <div style='position: absolute; top: 40px; left: 0px; width: 180px; height: 15px'>
 <form>
 <select id=selSpaceObject2_id name="selSpaceObject2" size="1" onclick="clickInSpaceObject2();">
-<!--<option value="1">Regulus</option>
-<option value="2">Vega</option>
-<option value="3">Kochab</option>-->
 </select>
 </form>
 </div>
@@ -198,7 +192,7 @@ function successStarObjects(data, textStatus, jqXHR)
 				$('#selSpaceObject1_id').append(addition);
 				$('#selSpaceObject2_id').append(addition);
 			}
-			alert("CSuccess found");
+			// alert("CSuccess found");
 		}
 		else
 			alert("CSuccess not found");
@@ -213,7 +207,7 @@ function successStarObjects(data, textStatus, jqXHR)
 	
 }
 
-function successStarObjectDetails2(data, textStatus, jqXHR)
+function successStarObjectDetailsI(data, textStatus, jqXHR, hra_id, mra_id, sra_id, ddec_id, mdec_id, sdec_id)
 {
 	try
 	{
@@ -244,15 +238,15 @@ function successStarObjectDetails2(data, textStatus, jqXHR)
 			var decMin = $(entry).children('decMin').text();
 			var decSec = $(entry).children('decSec').text();
 
-			$('#h2ra_id').val(raHrs);
-			$('#m2ra_id').val(raMin);
-			$('#s2ra_id').val(raSec);
+			$(hra_id).val(raHrs);
+			$(mra_id).val(raMin);
+			$(sra_id).val(raSec);
 
-			$('#d2dec_id').val(decSign * decDeg);
-			$('#m2dec_id').val(decMin);
-			$('#s2dec_id').val(decSec);
+			$(ddec_id).val(decSign * decDeg);
+			$(mdec_id).val(decMin);
+			$(sdec_id).val(decSec);
 
-			alert("CSuccessSODetails found");
+			// alert("CSuccessSODetails found");
 		}
 		else
 			alert("CSuccessSODetails not found");
@@ -266,12 +260,52 @@ function successStarObjectDetails2(data, textStatus, jqXHR)
 	}
 }
 
+function successStarObjectDetails2(data, textStatus, jqXHR)
+{
+
+	var hra_id = '#h2ra_id';
+	var mra_id = '#m2ra_id';
+	var sra_id = '#s2ra_id';
+
+	var ddec_id = '#d2dec_id';
+	var mdec_id = '#m2dec_id';
+	var sdec_id = '#s2dec_id';
+	return successStarObjectDetailsI(data, textStatus, jqXHR, hra_id, mra_id, sra_id, ddec_id, mdec_id, sdec_id);
+}
+
+
+function successStarObjectDetails1(data, textStatus, jqXHR)
+{
+
+	var hra_id = '#h1ra_id';
+	var mra_id = '#m1ra_id';
+	var sra_id = '#s1ra_id';
+
+	var ddec_id = '#d1dec_id';
+	var mdec_id = '#m1dec_id';
+	var sdec_id = '#s1dec_id';
+	return successStarObjectDetailsI(data, textStatus, jqXHR, hra_id, mra_id, sra_id, ddec_id, mdec_id, sdec_id);
+}
+
+
+function clickInSpaceObject1()
+{
+	var selValue = $('#selSpaceObject1_id')[0].value;
+	var starObjXml = 'starobjectdetailsxml.php';
+	var ajaxObj = jQuery.ajax(
+		{
+			url:starObjXml,
+			dataType:'xml',
+			type:'GET',
+			data:'selIndex='+selValue,
+			success:successStarObjectDetails1
+		});
+	// alert("Click in SpaceObject1: selIndex="+selValue);
+}
+
 function clickInSpaceObject2()
 {
-	// var selIndex = $('#selSpaceObject2_id')[0].selectedIndex;
 	var selValue = $('#selSpaceObject2_id')[0].value;
-	// if (selIndex == -1)
-	//	return;
 	var starObjXml = 'starobjectdetailsxml.php';
 	var ajaxObj = jQuery.ajax(
 		{
@@ -281,7 +315,7 @@ function clickInSpaceObject2()
 			data:'selIndex='+selValue,
 			success:successStarObjectDetails2
 		});
-	alert("Click in SpaceObject2: selIndex="+selIndex);
+	// alert("Click in SpaceObject2: selIndex="+selValue);
 }
 
 
