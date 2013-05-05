@@ -10,21 +10,31 @@ Start Worker
 </button>
 </div>
 <div id="tbuttonId" style="position:absolute;left:100px;top:258px;width:200px;height:50px;border:red double 4px">
-<button id="terminateId" type=button onclick='hworker.terminate(); delete hworker;deactivateTerminate();activateStart();'>
+<button id="terminateId" type=button onclick='removeWorker(); deactivateTerminate();createWorker();activateStart();'>
 End Worker
 </button>
 </div>
 <script language="JavaScript" type="text/javascript">
-	var hworker = new Worker("../jscr/helloworker.js");
-	hworker.onmessage = function(event)
+	var hworker = null;
+	function createWorker()
 	{
-		document.getElementById("resultId").textContent = event.data;
-		dump("Got:" + event.data + "\n");
-	};
-	hworker.onerror = function(error)
+		hworker = new Worker("../jscr/helloworker.js");
+		hworker.onmessage = function(event)
+		{
+			document.getElementById("resultId").textContent = event.data;
+			dump("Got:" + event.data + "\n");
+		};
+		hworker.onerror = function(error)
+		{
+			dump("Error:" + error.message + "\n");
+		};
+	}
+	function removeWorker()
 	{
-		dump("Error:" + error.message + "\n");
-	};
+		hworker.terminate();
+		// delete hworker;
+		hworker = null;
+	}
 	function activateStart()
 	{
 		document.getElementById("startId").disabled=false;
@@ -41,6 +51,7 @@ End Worker
 	{
 		document.getElementById("terminateId").disabled=true;
 	};
+	createWorker();
 	activateStart();
 	deactivateTerminate();
 </script>
