@@ -16,8 +16,8 @@ div.cscene {
 border: 5px solid #feb515;
 -webkit-border-radius: 3px;
 -moz-border-radius: 3px;
--webkit-border-image: url(/slideshow/border.jpg) 5 5 stretch;
--moz-border-image: url(/slideshow/border.jpg) 5 5 stretch;
+-webkit-border-image: url(/border.jpg) 5 5 stretch;
+-moz-border-image: url(/border.jpg) 5 5 stretch;
 }
 #circle1 {
 	-webkit-animation: track-scene1;
@@ -59,14 +59,14 @@ margin-left: 120px;
 <layer id="layer1">
 <div id="clipedge" style="position: absolute; top: 0px; left: 0px; height: 100px; width: 100px">
 <div id="circle1" style="position:absolute; height: 10px; width: 10px">
-<img src="/slideshow/circle.jpg"/>
+<img src="/circle.jpg"/>
 </div>
 </div>
 </layer>
 <layer id="layer2">
 <div id="clipedge" style="position: absolute; top: 0px; left: 0px; height: 100px; width: 100px">
 <div id="circle2" style="position:absolute; height: 10px; width: 10px">
-<img src="/slideshow/bcircle.jpg"/>
+<img src="/bcircle.jpg"/>
 </div>
 </div>
 </layer>
