@@ -9,36 +9,30 @@ front end work..
 @note Most of the style is indicated outside of the tag.
 The position is indicated in the tag.  I find this useful.
 @note Tested in Firefox 20 (OK). Test in Chromium 25.0.1364.160 (OK)
+@change_history 2013-05-19 May 19, Removed commented out code.  Cleanup.
+@change_history 2013-05-19 May 19, Added comments to functions.
 **/
 ?>
 <?php
+
 /**
-$element0 = array('id'=>'aquagreenradial');
-$div_params = array($element0);
-
-$first = array('red', 'yellow');
-$second = array('black', 'green');
-$third = array('purple', 'aqua');
-
-$fourth = array('black', 'white');
-$fifth = array('red', 'black');
-$sixth = array('yellow', 'green');
-
-$cs[0][0] = $first;
-$cs[0][1] = $second;
-$cs[0][2] = $third;
-
-$cs[1][0] = $fourth;
-$cs[1][1] = $fifth;
-$cs[1][2] = $sixth;
-**/
-
+  * makeIdpart: given a row value of i, and a column value of j,
+  * and a prefix value to use, this function centralized how
+  * to compute the id value for a division.
+  */
 function makeIdpart($i, $j, $idprefix)
 {
 	$id_part = $idprefix.'_'.$i.'_'.$j;
 	return $id_part;
 }
 
+/**
+  * makeDivs: this function outputs a set of divisions arranged
+  * in a 2D square of a certain number of rows and columns.
+  * The width and height of each rectangle is specified.
+  * Lastly, the idprefix to use for the id of each division
+  * is indicated.
+  */
 function makeDivs($width, $height, $rows, $columns, $idprefix)
 {
 	for ($i=0; $i < $rows; $i++)
@@ -55,7 +49,12 @@ function makeDivs($width, $height, $rows, $columns, $idprefix)
 		}
 	}
 }
-
+/**
+  * makeStyle: this generates (or makes) the various style components
+  * used by the divisions constructed with makeDivs.  Make sure to
+  * pass in the same values for parameters width, height, rows, columns,
+  * and idprefix.  Lastly, for makeStyle, it needs to know the colorScheme.
+  */
 function makeStyle($width, $height, $rows, $columns, $idprefix, $colorScheme)
 {
 	for ($i=0; $i < $rows; $i++)
@@ -68,20 +67,11 @@ function makeStyle($width, $height, $rows, $columns, $idprefix, $colorScheme)
 			echo 'div#'.$id_part.' {';
 			echo 'width: '.$width.'px;';
 			echo 'height: '.$height.'px;';
-
 			echo 'background: -webkit-radial-gradient('.$color0.', '.$color1.');';
 			echo 'background: radial-gradient('.$color0.', '.$color1.')';
 			echo '}';
 		}
 	}
 }
-/*
-div#blackgreenradial {
-width: 100px;
-height: 100px;
-background: -webkit-radial-gradient(black, green);
-background: radial-gradient(black, green)
-}
-*/
 
 ?>
