@@ -11,6 +11,8 @@ The position is indicated in the tag.  I find this useful.
 @note Tested in Firefox 20 (OK). Test in Chromium 25.0.1364.160 (OK)
 @change_history 2013-05-19 May 19, Removed commented out code.  Cleanup.
 @change_history 2013-05-19 May 19, Added comments to functions.
+@change_history 2013-05-20 May 20, Added function: computeBoundaryDivs.
+Added left_offset and top_offset to arg list for makeDivs.
 **/
 ?>
 <?php
@@ -33,17 +35,17 @@ function makeIdpart($i, $j, $idprefix)
   * Lastly, the idprefix to use for the id of each division
   * is indicated.
   */
-function makeDivs($width, $height, $rows, $columns, $idprefix)
+function makeDivs($width, $height, $rows, $columns, $idprefix, $left_offset=0, $top_offset=0)
 {
 	for ($i=0; $i < $rows; $i++)
 	{
 
-		$top = $i*$height.'px'; 
+		$top = $top_offset+$i*$height.'px'; 
 		for ($j=0; $j < $columns; $j++)
 		{
 			// $id_part = $idprefix.'_'$i.'_'.$j;
 			$id_part = makeIdpart($i,$j, $idprefix);
-			$left = $j*$width.'px'; 
+			$left = $left_offset+$j*$width.'px'; 
 			$style_string='position: absolute; left: '.$left.'; top: '.$top;	
 			echo '<div id='.$id_part.' style="'.$style_string.'"></div>'; 
 		}
@@ -72,6 +74,20 @@ function makeStyle($width, $height, $rows, $columns, $idprefix, $colorScheme)
 			echo '}';
 		}
 	}
+}
+
+/**
+  * computeBoundaryDivs: given the same parameters as makeDivs (except
+  * idprefix), this function computes the boundary of the div matrix.
+  * An associated array is returned with keys: left, right, top, bottom.
+  */
+function computeBoundaryDivs($width, $height, $rows, $columns, $left_offset=0, $top_offset=0)
+{
+	$area['left'] = $left_offset;
+	$area['right'] = $columns*$width;
+	$area['top'] = $top_offset;
+	$area['bottom'] = $rows*$height;
+	return $area;
 }
 
 ?>
