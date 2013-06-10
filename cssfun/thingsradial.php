@@ -7,6 +7,8 @@
 <!-- @note Most of the style is indicated outside of the tag.
      The position is indicated in the tag.  I find this useful. -->
 <!-- @note Tested in Firefox 20 (OK). Test in Chromium 25.0.1364.160 (OK) -->
+<!-- @change_history 2013-05-29 May 29; RByczko; Added Back link based on -->
+<!-- referrer. -->
 <html>
 <head>
 <style type="text/css">
@@ -45,6 +47,16 @@ background: -webkit-radial-gradient(black, green);
 background: radial-gradient(black, green)
 }
 
+div#backbutton {
+position: absolute;
+left: 110px;
+top: 300px;
+width: 100px;
+height: 20px;
+text-align: center;
+border: blue double 2px
+}
+
 </style>
 </head>
 <body>
@@ -58,6 +70,17 @@ background: radial-gradient(black, green)
 </div>
 <div id=blackgreenradial style="position: absolute; left: 100px; top: 100px">
 </div>
+<?php
+	if (isset($_SERVER['HTTP_REFERER']))
+	{
+		$srcPage = $_SERVER['HTTP_REFERER'];
+?>
+		<div id=backbutton>
+			<a href="<?php echo $srcPage; ?>">Back</a>
+		</div>
+<?php
+	}
+?>
 
 </body>
 </html>

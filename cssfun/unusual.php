@@ -2,6 +2,8 @@
 <!-- @author Raymond Byczko -->
 <!-- @file toolboxhtml5/cssfun/unusual.php -->
 <!-- @start_date 2013-05-15 May 15 -->
+<!-- @change_history 2013-05-29 May 29; RByczko; Added Back button, but -->
+<!-- only if referrer is present. -->
 <!-- @purpose To learn CSS for chromium and firefox.  -->
 <!-- @note For linear gradient, left to right, see:  -->
 <!--
@@ -48,6 +50,17 @@ background: -webkit-linear-gradient(20deg, yellow, blue);
 background: linear-gradient(70deg, yellow, blue)
 }
 
+
+div#backbutton {
+position: absolute;
+left: 220px;
+top: 380px;
+width: 100px;
+height: 20px;
+text-align: center;
+border: blue double 2px
+}
+
 </style>
 </head>
 <body>
@@ -61,6 +74,17 @@ background: linear-gradient(70deg, yellow, blue)
 </div>
 <div id=tiltedsunset style="position: absolute; left: 450px; top: 150px">
 </div>
-
+<?php
+	if (isset($_SERVER['HTTP_REFERER']))
+	{
+		$srcPage = $_SERVER['HTTP_REFERER'];
+?>
+	<!--<div id=back style="position: absolute; left: 10px; top: 400px; border: blue double 2px">-->
+		<div id=backbutton>
+			<a href="<?php echo $srcPage; ?>">Back</a>
+		</div>
+<?php
+	}
+?>
 </body>
 </html>

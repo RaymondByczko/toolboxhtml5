@@ -10,6 +10,8 @@ https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_gradients
 <!-- @note Most of the style is indicated outside of the tag.
      The position is indicated in the tag.  I find this useful. -->
 <!-- @note Tested in Firefox 20 (OK). Test in Chromium 25.0.1364.160 (OK) -->
+<!-- @change_history self-RByczko, 2013-06-09 June 9, Added 'Back' link -->
+<!-- only if there is a referrer. -->
 <html>
 <head>
 <style type="text/css">
@@ -41,6 +43,16 @@ background: -webkit-linear-gradient(20deg, yellow, blue);
 background: linear-gradient(70deg, yellow, blue)
 }
 
+div#backbutton {
+position: absolute;
+left: 220px;
+top: 400px;
+width: 100px;
+height: 20px;
+text-align: center;
+border: blue double 2px
+}
+
 </style>
 </head>
 <body>
@@ -52,6 +64,16 @@ background: linear-gradient(70deg, yellow, blue)
 </div>
 <div id=tiltedsunset style="position: absolute; left: 450px; top: 150px">
 </div>
-
+<?php
+	if (isset($_SERVER['HTTP_REFERER']))
+	{
+		$srcPage = $_SERVER['HTTP_REFERER'];
+?>
+		<div id=backbutton>
+			<a href="<?php echo $srcPage; ?>">Back</a>
+		</div>
+<?php
+	}
+?>
 </body>
 </html>

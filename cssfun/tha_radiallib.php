@@ -11,6 +11,8 @@ front end work.  This file is a test harness for radiallib.php.
 @note Most of the style is indicated outside of the tag.
      The position is indicated in the tag.  I find this useful.
 @note Tested in Firefox 20 (OK). Test in Chromium 25.0.1364.160 (OK)
+@change_history self-RByczko, 2013-06-10 June 10, Added 'Back' link -->
+only if there is a referrer. -->
 */
 include_once 'radiallib.php';
 ?>
@@ -55,11 +57,34 @@ $cs[3][2] = $twelfth;
 makeStyle(100, 100, 4, 3, 'thaprefix', $cs);
 
 ?>
+
+div#backbutton {
+position: absolute;
+left: 100px;
+top: 450px;
+width: 100px;
+height: 20px;
+text-align: center;
+border: blue double 2px
+}
 </style>
 </head>
 <body>
 <?php
 makeDivs(100, 100, 4, 3, 'thaprefix');
+?>
+
+<?php
+	if (isset($_SERVER['HTTP_REFERER']))
+	{
+		$srcPage = $_SERVER['HTTP_REFERER'];
+?>
+		<div id=backbutton>
+			<a href="<?php echo $srcPage; ?>">Back</a>
+		</div>
+<?php
+	}
+?>
 ?>
 </body>
 </html>
