@@ -1,0 +1,48 @@
+body {
+	background-color: lightblue;
+}
+
+.hspan {
+	background-color: lightyellow;
+	padding-left: 1em;
+	padding-right: 1em;
+	border: 2px solid red;
+	margin-left: 2px;
+	margin-right: 2px;
+	min-width: 30em;
+	width: 300px;
+}
+
+.flex-container {
+	display: flex;
+	background-color: orange;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.flex-container > .fspan {
+	padding-left: 0px;
+	padding-right: 0px;
+	border: 2px solid black;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+	margin: 5px;
+	text-decoration: none;
+}
+
+.fspan > a {
+	text-decoration: none;
+	width: inherit;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	overflow: hidden;
+}
+
+.fspan > a:hover {
+	background-color: grey;
+	width: inherit;
+	overflow: hidden;
+}

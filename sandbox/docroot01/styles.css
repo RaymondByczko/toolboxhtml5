@@ -1,0 +1,31 @@
+body {
+	background-color: lightblue;
+}
+
+.hspan {
+	background-color: lightyellow;
+	padding-left: 1em;
+	padding-right: 1em;
+	border: 2px solid red;
+	margin-left: 2px;
+	margin-right: 2px;
+	min-width: 30em;
+	width: 300px;
+}
+
+.flex-container {
+	display: flex;
+	background-color: orange;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.flex-container > .fspan {
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 2px solid black;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+	margin: 5px;
+}

@@ -1,0 +1,67 @@
+body {
+	background-color: lightblue;
+}
+
+.hspan {
+	background-color: lightyellow;
+	padding-left: 1em;
+	padding-right: 1em;
+	border: 2px solid red;
+	margin-left: 2px;
+	margin-right: 2px;
+	min-width: 30em;
+	width: 300px;
+}
+
+.flex-container {
+	display: flex;
+	background-color: orange;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.flex-container > .fspan {
+	padding-left: 0px;
+	padding-right: 0px;
+	border: 2px solid black;
+	justify-content: space-between;
+	align-items: center;
+	align-content: stretch;
+	margin: 5px;
+	text-decoration: none;
+}
+
+.fspan > a, a:hover {
+	text-decoration: none;
+	width: inherit;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	overflow: hidden;
+	margin: 4px;
+}
+
+.fspan > a:hover {
+	background-color: grey;
+}
+
+.work_activity {
+	box-sizing: content-box-box;
+	border-style: solid;
+	border-width: 3px;
+	border-color: green;
+	width: 15em;
+	padding: 2em;
+	height: 8em;
+}
+
+.work_done {
+	border-width: 3px;
+	border-color: green;
+}
+
+.work_notdone {
+	border-width: 5px;
+	border-color: red;
+}

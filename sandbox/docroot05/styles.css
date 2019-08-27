@@ -1,0 +1,120 @@
+body {
+	background-color: lightblue;
+}
+
+.flex-container {
+	display: flex;
+	background-color: orange;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.flex-container > .fspan {
+	padding-left: 0px;
+	padding-right: 0px;
+	border: 2px solid black;
+	justify-content: space-between;
+	align-items: center;
+	align-content: stretch;
+	margin: 5px;
+	text-decoration: none;
+}
+
+.fspan > a, a:hover {
+	text-decoration: none;
+	padding-left: 3px;
+	padding-right: 3px;
+	border-width: 0px;
+	width:initial;
+	position: static;
+	left:0px;
+	top:4px;
+}
+
+.fspan > a:hover {
+	background-color: grey;
+}
+
+.div_container {
+	border-width: 2px;
+	border-color: blue;
+	border-style: solid;
+}
+
+.movement_container {
+	border-width:2px;
+	border-color: purple;
+	border-style: solid;
+	position: relative;
+	left: 20px;
+	width: 120px;
+	height: 120px;
+}
+
+.div_movement {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+}
+
+.div_inline {
+	display: inline;
+	border-width:2px;
+	border-color: red;
+	border-style: solid;
+	height: 3em;
+}
+
+.div_block {
+	display: block;
+	border-width:2px;
+	border-color:purple;
+	border-style: solid;
+	height: 5em;
+	width: 15em;
+	margin: auto;
+}
+
+.div_inlineblock {
+	display: inline-block;
+	border-width: 2px;
+	border-color: blue;
+	border-style: dashed;
+	height: 4em;
+}
+
+@keyframes movement {
+	0% {
+		bottom:0;
+		left:0;
+	}
+	100% {
+		bottom:100px;
+		left:50px;
+	}
+}
+
+@-webkit-keyframes movement {
+	0% {
+		top:0;
+		left:0;
+	}
+	100% {
+		top:60px;
+		left:0px;
+	}
+}
+
+.movement_div {
+	-webkit-animation: movement 2s infinite;
+	animation-name: movement;
+	animation-duration:10s;
+	animation-timing-function: ease;
+	border-width: 1px;
+	border-color: red;
+	border-style: solid;
+	position: relative;
+	/*bottom:0;
+	left:0;*/
+}
+
